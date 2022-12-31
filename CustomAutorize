@@ -1,0 +1,47 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Routing;
+using System.Web.Security;
+using DataAccess;
+using System.IO;
+using AmlakModel;
+
+namespace AmlakPrice.Infrastructure
+{
+    public class CustomAuthorize : AuthorizeAttribute
+    {
+        protected override bool AuthorizeCore(HttpContextBase httpContext)
+        {
+            try
+            {
+                Group_CModel Group_C = new Group_CModel();
+                Group_C.Controller_Title = httpContext.Request.RequestContext.RouteData.Values["controller"].ToString();
+                Group_C.M_Title = httpContext.Request.RequestContext.RouteData.Values["action"].ToString();
+                Group_C.Group_Id = int.Parse(SessionManager.Check_Cookie_Vaue(httpContext, "Cookie_Group_id"));
+                Group_CRepository Group_CRepo = new Group_CRepository();
+                OperationResult op = Group_CRepo.GetControllersBYGroupId(Group_C);
+
+                if (op.Status)
+                    return true;
+                else
+                    return false;
+            }
+            catch
+            {
+                return false;
+            }
+            
+        }
+        public override void OnAuthorization(AuthorizationContext filterContext)
+        {
+            base.OnAuthorization(filterContext);
+            if (filterContext.Result is HttpUnauthorizedResult)
+            {
+                filterContext.Result = new RedirectResult(System.Configuration.ConfigurationManager.AppSettings["Profile_logout"], false);
+            }
+        }
+    }
+}
