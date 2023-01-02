@@ -4,7 +4,7 @@ In this app you can check every function or view in asp.net mvc controller in or
 
 ## Insert This simple code above yout controller to redirect every access to your AuthorizeAttribute
 
-
+```
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,3 +23,5 @@ namespace AmlakPrice.Controllers
     public class ProfileController : Controller
     {
     }
+```
+
