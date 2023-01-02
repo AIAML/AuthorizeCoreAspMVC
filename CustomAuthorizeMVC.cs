@@ -9,7 +9,7 @@ using System.IO;
 
 namespace WebApplication1
 {
-    public class CustomAuthorize : AuthorizeAttribute
+    public class CustomAuthorizeMVC : AuthorizeAttribute
     {
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
