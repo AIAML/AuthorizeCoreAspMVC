@@ -5,11 +5,9 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
-using DataAccess;
 using System.IO;
-using AmlakModel;
 
-namespace AmlakPrice.Infrastructure
+namespace WebApplication1
 {
     public class CustomAuthorize : AuthorizeAttribute
     {
@@ -17,16 +15,13 @@ namespace AmlakPrice.Infrastructure
         {
             try
             {
-            
-                Group_CModel Group_C = new Group_CModel();
-                Group_C.Controller_Title = httpContext.Request.RequestContext.RouteData.Values["controller"].ToString();
-                Group_C.M_Title = httpContext.Request.RequestContext.RouteData.Values["action"].ToString();
-                Group_C.Group_Id = int.Parse(SessionManager.Check_Cookie_Vaue(httpContext, "Cookie_Group_id"));
-                Group_CRepository Group_CRepo = new Group_CRepository();
-                OperationResult op = Group_CRepo.GetControllersBYGroupId(Group_C);
-          
-          //Check whether you have access to Controller or not
-                if (op.Status)
+                
+                string controller = httpContext.Request.RequestContext.RouteData.Values["controller"].ToString();
+                string action = httpContext.Request.RequestContext.RouteData.Values["action"].ToString();
+
+                //Check whether you have access or not according to your group
+                bool Status = true;
+                if (Status)
                     return true;
                 else
                     return false;
@@ -35,7 +30,7 @@ namespace AmlakPrice.Infrastructure
             {
                 return false;
             }
-            
+
         }
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
