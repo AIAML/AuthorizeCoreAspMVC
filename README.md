@@ -72,6 +72,10 @@ namespace AmlakPrice.Controllers
 [CustomAuthorizeMVC]
     public class ProfileController : Controller
     {
+          public ActionResult Index()
+        {
+            return View();
+        }
     }
 ```
 
