@@ -21,7 +21,6 @@ namespace WebApplication1
         {
             try
             {
-                
                 string controller = httpContext.Request.RequestContext.RouteData.Values["controller"].ToString();
                 string action = httpContext.Request.RequestContext.RouteData.Values["action"].ToString();
 
