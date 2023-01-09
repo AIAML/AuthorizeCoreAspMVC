@@ -23,7 +23,6 @@ namespace WebApplication1
             {
                 string controller = httpContext.Request.RequestContext.RouteData.Values["controller"].ToString();
                 string action = httpContext.Request.RequestContext.RouteData.Values["action"].ToString();
-
                 //Check whether you have access or not according to your group
                 bool Status = true;
                 if (Status)
@@ -49,8 +48,6 @@ namespace WebApplication1
 }
 
 ```
-
-
 ## Insert This simple code above yout controller to redirect every access to your AuthorizeAttribute
 
 ```
